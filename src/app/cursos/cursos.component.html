@@ -1,0 +1,42 @@
+<h1>Cursos</h1>
+
+<div class="form-group">
+  <label for="formGroupExampleInput">Filtrar por Nome:</label>
+  <input [(ngModel)]="filtro" class="form-control"  placeholder="Nome do curso">
+</div>
+
+
+<table class="table table-striped">
+  <thead class="thead-dark">
+    <tr>
+      <th>Imagem</th>
+      <th>Nome</th>
+      <th>Preço</th>
+      <th>Código</th>
+      <th>Duração</th>
+      <th>Avaliação</th>
+      <th>Data</th>
+      <th>Opções</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let curso of _filtroDeCursos">
+      <td><img [src]="curso.imageUrl" width="60" height="60"></td>
+      <td>{{ curso.name }}</td>
+      <td>{{ curso.price | currency: "R$" }}</td>
+      <td>{{ curso.code | lowercase }}</td>
+      <td>{{ curso.duracao }}</td>
+      <td>
+        <!-- {{ curso.avaliacao }} -->
+        <star [rating]="curso.avaliacao"></star>
+      </td>
+      <td>{{ curso.data | date: 'dd/MM/YYYY' }}</td>
+      <td>
+        <a [routerLink]="['/cursos/info', curso.id]" class="btn btn-primary mr-2" >Edit</a>
+        <button (click)="deleteById(curso.id)" class="btn btn-danger">Deletar</button>
+      </td>
+    </tr>
+    
+   
+  </tbody>
+</table>
